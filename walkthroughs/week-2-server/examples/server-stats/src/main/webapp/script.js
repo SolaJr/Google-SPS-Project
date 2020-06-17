@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /**
- * Fetches stats from the servers and adds them to the DOM.
+ * LESSON 3 - JSON files
  */
 function getServerStats() {
   fetch('/server-stats').then(response => response.json()).then((stats) => {
