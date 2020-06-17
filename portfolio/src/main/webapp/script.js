@@ -1,21 +1,103 @@
 // Copyright 2019 Google LLC
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+
+
+function getNewName() {
+  console.log('Fetching a new name.');
+  const responsePromise = fetch('/new-name');
+  responsePromise.then(handleResponse);
+}
+
+function getComments() {
+  console.log('Fetching a new comment.');
+  const responsePromise = fetch('/text');
+  responsePromise.then(handleResponseComments);
+}
+function handleResponseComments(response) {
+  console.log('Handling the response.');
+  const textPromise = response.text();
+  textPromise.then(addQuoteToDom_Comments);
+}
+function addQuoteToDom_Comments(comm) {
+  console.log('Feedback- ' + comm);
+  const comContainer = document.getElementById('comments-container');
+  comContainer.innerText = comm;
+}
+
+
+
+function handleResponse(response) {
+  console.log('Handling the response.');
+  const textPromise = response.text();
+  textPromise.then(addQuoteToDom);
+}
+
+/** Adds a random title to the file */
+function addQuoteToDom(quote) {
+  console.log('Adding new random title: ' + quote);
+  const quoteContainer = document.getElementById('quote-container');
+  quoteContainer.innerText = quote;
+}
+ 
+function getRandomQuoteUsingArrowFunctions() {
+  fetch('/random-quote').then(response => response.text()).then((quote) => {
+    document.getElementById('quote-container').innerText = quote;
+  });
+}
+
+async function getRandomQuoteUsingAsyncAwait() {
+  const response = await fetch('/random-quote');
+  const quote = await response.text();
+  document.getElementById('quote-container').innerText = quote;
+}
+//Lesson 3- ------------------JSON
 
 /**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
+ * LESSON 3 - JSON files
+ 
+function lessonJSON(){
+const myObject = document.getElementById('comment-server');
+
+fetch('/data')  // sends a request to /my-data-url
+.then(response => response.json()) // parses the response as JSON
+.then((myObject) => { // now we can reference the fields in myObject!
+  console.log(myObject.x);
+  console.log(myObject.y);
+  console.log(myObject.z);
+});
+
+return response.json; 
+}*/
+ 
+function getServerStats() {
+  fetch('/server-stats').then(response => response.json()).then((stats) => {
+    // stats is an object, not a string, so we have to
+    // reference its fields to create HTML content
+
+    const statsListElement = document.getElementById('server-stats-container');
+    statsListElement.innerHTML = '';
+
+    statsListElement.appendChild(
+        createListElement('Name: ' + stats.name));
+    statsListElement.appendChild(
+        createListElement('Time: ' + stats.time));
+    statsListElement.appendChild(
+        createListElement('Comment' + stats.comment));
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
+
+
+
+
+function greetingTest() {
+    
   const greetings =
       ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
 

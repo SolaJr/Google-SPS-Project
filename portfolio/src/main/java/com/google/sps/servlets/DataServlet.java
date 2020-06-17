@@ -13,20 +13,45 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
-
+import java.util.ArrayList; 
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.gson.Gson;
+import com.google.sps.servlets.DataServlet;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
+//import com.google.sps.data.ServerStats;
+
+/** Servlet that returns some example content. TODO: modify this file to handle comments data 
+@WebServlet("/data")*/
 public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      /*
+    ArrayList<String> mylist = new ArrayList<String> ();
+    mylist.add("abc");
+    mylist.add("cfd");
+    mylist.add("ert");
+    mylist.add("fg");
+    mylist.add("ujk");
+  /*  String json = new Gson().toJson(mylist);
+
     response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
-  }
+    response.getWriter().println("<h1>Hello Sola!</h1>");
+
+    // Convert the server stats to JSON
+    ServerStats serverStats = new ServerStats(startTime, currentTime, maxMemory, usedMemory);
+    String json = convertToJson(serverStats);
+
+    // Send the JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  */
+  response.setContentType("text/html;");
+    response.getWriter().println("<h1>Hello Sola!</h1>");
+
+    }
 }
